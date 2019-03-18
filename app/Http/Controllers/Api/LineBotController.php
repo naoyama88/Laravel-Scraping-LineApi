@@ -18,6 +18,9 @@ class LineBotController
     public function callback(Request $request)
     {
 
+        error_log('accessed');
+        return true;
+
         /** @var LINEBot $bot */
         $bot = app('line-bot');
 
