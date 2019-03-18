@@ -17,8 +17,6 @@ class LineBotController
      */
     public function callback(Request $request)
     {
-        error_log('よっしゃあああああああああああああああああああああああああああ');
-        return '正常確認完了';
         /** @var LINEBot $bot */
         $bot = app('line-bot');
 
