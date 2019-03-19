@@ -61,7 +61,7 @@ class LineBotController
                 case $event instanceof LINEBot\Event\UnfollowEvent:
                     break;
                 default:
-                    $body = $event->getEventBody();
+                    $body = $event->getEventSourceId();
                     logger()->warning('Unknown event. ['. get_class($event) . ']', compact('body'));
             }
 
