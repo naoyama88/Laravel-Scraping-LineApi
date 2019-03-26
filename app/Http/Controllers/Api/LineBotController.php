@@ -30,14 +30,14 @@ class LineBotController
 
         /** @var LINEBot\Event\BaseEvent $event */
         foreach ($events as $event) {
-            $reply_token = $event->getReplyToken();
-            $reply_message = 'その操作はサポートしてません。.[' . get_class($event) . '][' . $event->getType() . ']';
+            $replyToken = $event->getReplyToken();
+            $replyMessage = 'その操作はサポートしてません。.[' . get_class($event) . '][' . $event->getType() . ']';
 
             switch (true){
                 //友達登録＆ブロック解除
                 case $event instanceof LINEBot\Event\FollowEvent:
                     $service = new FollowService($bot);
-                    $reply_message = $service->execute($event)
+                    $replyMessage = $service->execute($event)
                         ? '友達登録されたからLINE ID引っこ抜いたわー'
                         : '友達登録されたけど、登録処理に失敗したから、何もしないよ';
 
@@ -45,13 +45,13 @@ class LineBotController
                 //メッセージの受信
                 case $event instanceof LINEBot\Event\MessageEvent\TextMessage:
                     $service = new RecieveTextService($bot);
-                    $reply_message = $service->execute($event);
+                    $replyMessage = $service->execute($event);
                     break;
 
                 //位置情報の受信
                 case $event instanceof LINEBot\Event\MessageEvent\LocationMessage:
                     $service = new RecieveLocationService($bot);
-                    $reply_message = $service->execute($event);
+                    $replyMessage = $service->execute($event);
                     break;
 
                 //選択肢とか選んだ時に受信するイベント
@@ -61,11 +61,12 @@ class LineBotController
                 case $event instanceof LINEBot\Event\UnfollowEvent:
                     break;
                 default:
+                    // 例:
                     $body = $event->getEventSourceId();
                     logger()->warning('Unknown event. ['. get_class($event) . ']', compact('body'));
             }
 
-            $bot->replyText($reply_token, $reply_message);
+            $bot->replyText($replyToken, $replyMessage);
         }
     }
 }
