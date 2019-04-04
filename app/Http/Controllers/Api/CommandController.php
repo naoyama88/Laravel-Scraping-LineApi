@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use LINE\LINEBot;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 class CommandController
 {
     /**
      * push test
-     * @throws LINEBot\Exception\InvalidSignatureException
      */
     public function test()
     {
