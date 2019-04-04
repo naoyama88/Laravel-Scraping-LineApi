@@ -42,12 +42,8 @@ class UnfollowService
                 return false;
             }
 
-            $line_friend = new LineFriend();
-            $input = [
-                'line_id' => $line_id,
-            ];
+            LineFriend::where('line_id', $line_id)->delete();
 
-            $line_friend->fill($input)->delete();
             DB::commit();
 
             return true;
