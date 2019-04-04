@@ -23,7 +23,7 @@ class LineBotController
 
         $signature = $_SERVER['HTTP_'.LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
         if (!LINEBot\SignatureValidator::validateSignature($request->getContent(), env('LINE_CHANNEL_SECRET'), $signature)) {
-            logger()->info('recieved from difference line-server');
+            Log::info('recieved from difference line-server');
             abort(400);
         }
 
@@ -33,13 +33,6 @@ class LineBotController
         foreach ($events as $event) {
             $replyToken = $event->getReplyToken();
             $replyMessage = 'その操作はサポートしてません。.[' . get_class($event) . '][' . $event->getType() . ']';
-
-            $userId = $event->getUserId();
-            if (isset($userId)) {
-                Log::info('------------------');
-                Log::info($userId);
-                Log::info('------------------');
-            }
 
             switch (true){
                 //友達登録＆ブロック解除
@@ -71,7 +64,7 @@ class LineBotController
                 default:
                     // 例:
                     $body = $event->getEventSourceId();
-                    logger()->warning('Unknown event. ['. get_class($event) . ']', compact('body'));
+                    Log::warning('Unknown event. ['. get_class($event) . ']', compact('body'));
             }
 
             $bot->replyText($replyToken, $replyMessage);
