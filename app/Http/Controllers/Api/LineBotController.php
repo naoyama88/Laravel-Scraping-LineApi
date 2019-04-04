@@ -7,6 +7,7 @@ use App\Services\Line\Event\RecieveTextService;
 use App\Services\Line\Event\FollowService;
 use Illuminate\Http\Request;
 use LINE\LINEBot;
+use Illuminate\Support\Facades\Log;
 
 class LineBotController
 {
@@ -32,6 +33,11 @@ class LineBotController
         foreach ($events as $event) {
             $replyToken = $event->getReplyToken();
             $replyMessage = 'その操作はサポートしてません。.[' . get_class($event) . '][' . $event->getType() . ']';
+
+            $userId = $event->getUserId();
+            if (!isset($userId)) {
+                Log::debug($userId);
+            }
 
             switch (true){
                 //友達登録＆ブロック解除
