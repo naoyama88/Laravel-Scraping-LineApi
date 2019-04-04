@@ -36,7 +36,9 @@ class LineBotController
 
             $userId = $event->getUserId();
             if (!isset($userId)) {
-                Log::debug($userId);
+                Log::info('------------------');
+                Log::info($userId);
+                Log::info('------------------');
             }
 
             switch (true){
