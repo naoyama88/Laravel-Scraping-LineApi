@@ -67,8 +67,8 @@ class LineBotController
                     break;
                 //ブロック
                 case $event instanceof UnfollowEvent:
-                    $service = new UnfollowService($bot);
-                    $service->execute($event);
+//                    $service = new UnfollowService($bot);
+//                    $service->execute($event);
                     break;
                 default:
                     // 例:
