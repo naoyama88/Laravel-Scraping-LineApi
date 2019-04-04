@@ -35,7 +35,7 @@ class LineBotController
             $replyMessage = 'その操作はサポートしてません。.[' . get_class($event) . '][' . $event->getType() . ']';
 
             $userId = $event->getUserId();
-            if (!isset($userId)) {
+            if (isset($userId)) {
                 Log::info('------------------');
                 Log::info($userId);
                 Log::info('------------------');
