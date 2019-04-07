@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         error_log('error_log function1');
-        $schedule->command('command:test')
+        $schedule->command(Commands\Test::class)
             ->everyMinute()
             ->when(function() {
                 return true;
