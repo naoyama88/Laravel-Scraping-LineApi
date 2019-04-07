@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Test::class
+        Commands\TestCommand::class
     ];
 
     /**
@@ -25,11 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         error_log('error_log function1');
-        $schedule->command(Commands\Test::class)
-            ->everyMinute()
-            ->when(function() {
-                return true;
-            });
+        $schedule->command('testcommand')
+            ->everyMinute();
     }
 
     /**
