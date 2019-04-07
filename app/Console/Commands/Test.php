@@ -38,6 +38,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
+        echo "asdfasdf";
         Log::info('Success running script.');
         error_log('error_log function');
     }
