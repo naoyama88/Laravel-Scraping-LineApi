@@ -1,5 +1,7 @@
 <?php
 
+// date_default_timezone_set('America/Vancouver');
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *

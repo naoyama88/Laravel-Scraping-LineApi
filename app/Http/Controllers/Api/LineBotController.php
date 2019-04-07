@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Services\Line\Event\RecieveLocationService;
 use App\Services\Line\Event\RecieveTextService;
 use App\Services\Line\Event\FollowService;
-use App\Services\Line\Event\UnfollowService;
 use Illuminate\Http\Request;
 use LINE\LINEBot;
 use Illuminate\Support\Facades\Log;
@@ -30,7 +29,7 @@ class LineBotController
 
         $signature = $_SERVER['HTTP_'.LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
         if (!LINEBot\SignatureValidator::validateSignature($request->getContent(), env('LINE_CHANNEL_SECRET'), $signature)) {
-            Log::info('recieved from difference line-server');
+            Log::info('received from difference line-server');
             abort(400);
         }
 
@@ -46,8 +45,8 @@ class LineBotController
                 case $event instanceof FollowEvent:
                     $service = new FollowService($bot);
                     $replyMessage = $service->execute($event)
-                        ? '友達登録されたからLINE ID引っこ抜いたわー'
-                        : '友達登録されたけど、登録処理に失敗したから、何もしないよ';
+                        ? '友達登録ありがとうございます！JPCANADA(Vancouver)のお仕事情報を流すアカウントです！'
+                        : '友達登録ありがとうございます！';
 
                     break;
                 //メッセージの受信
@@ -67,8 +66,6 @@ class LineBotController
                     break;
                 //ブロック
                 case $event instanceof UnfollowEvent:
-//                    $service = new UnfollowService($bot);
-//                    $service->execute($event);
                     break;
                 default:
                     // 例:

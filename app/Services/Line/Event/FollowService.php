@@ -5,7 +5,9 @@ namespace App\Services\Line\Event;
 use App\Models\LineFriend;
 use LINE\LINEBot;
 use LINE\LINEBot\Event\FollowEvent;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class FollowService
 {
@@ -37,7 +39,7 @@ class FollowService
             $line_id = $event->getUserId();
             $rsp = $this->bot->getProfile($line_id);
             if (!$rsp->isSucceeded()) {
-                logger()->info('failed to get profile. skip processing.');
+                Log::info('failed to get profile. skip processing.');
                 return false;
             }
 
@@ -54,7 +56,7 @@ class FollowService
             return true;
 
         } catch (Exception $e) {
-            logger()->error($e);
+            Log::error($e);
             DB::rollBack();
             return false;
         }
