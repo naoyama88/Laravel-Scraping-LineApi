@@ -39,5 +39,6 @@ class Test extends Command
     public function handle()
     {
         Log::info('Success running script.');
+        error_log('error_log function');
     }
 }
