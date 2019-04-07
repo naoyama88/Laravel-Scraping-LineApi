@@ -18,6 +18,7 @@ class Cron extends Model
     protected $fillable = ['command', 'next_run', 'last_run'];
 
     public static function shouldIRun($command, $minutes) {
+        error_log('error_log function2');
         $cron = Cron::find($command);
         $now  = Carbon::now();
         if ($cron && $cron->next_run > $now->timestamp) {
