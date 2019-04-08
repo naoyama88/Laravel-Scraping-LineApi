@@ -4,6 +4,7 @@ namespace App\Services\Job;
 
 use App\Libs\Constant\JobCategory;
 use App\Models\Job;
+use phpQuery;
 
 class JobService
 {
@@ -35,7 +36,7 @@ class JobService
     public function scrapeJobs(): array
     {
         $html = file_get_contents("http://bbs.jpcanada.com/listing.php?bbs=4&order=2");
-        $doc = \phpQuery::newDocument($html);
+        $doc = phpQuery::newDocument($html);
         $jobRecords = [];
         foreach ($doc["#bbs-table"]->find("div.divTableRow") as $tableRow) {
             $jobRecord = [];
