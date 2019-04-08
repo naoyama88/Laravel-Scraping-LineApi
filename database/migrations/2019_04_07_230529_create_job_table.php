@@ -19,8 +19,8 @@ class CreateJobTable extends Migration
             $table->string('title', 200);
             $table->string('href', 100);
             $table->string('sent_01', 1);
-            $table->string('sent_01', 1);
-            $table->string('sent_01', 1);
+            $table->string('sent_02', 1);
+            $table->string('sent_03', 1);
             $table->timestamp('post_datetime');
             $table->timestamps();
         });
