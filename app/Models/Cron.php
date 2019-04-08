@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Cron
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Cron newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Cron newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Cron query()
+ * @mixin \Eloquent
+ */
 class Cron extends Model
 {
     protected $primaryKey = 'command';

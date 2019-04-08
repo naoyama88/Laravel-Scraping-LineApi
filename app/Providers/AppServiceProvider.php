@@ -32,5 +32,9 @@ class AppServiceProvider extends ServiceProvider
                 ['channelSecret' => env('LINE_CHANNEL_SECRET')]
             );
         });
+
+        if ($this->app->environment("local")) {
+            $this->app->register('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider');
+        }
     }
 }

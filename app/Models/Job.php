@@ -6,13 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Job
- * @package App\Models
  *
+ * @package App\Models
  * @property int $id
  * @property string $category
  * @property string $title
  * @property string $href
- * @property timestamp $post_datetime
+ * @property string $post_datetime
+ * @property string $sent_01
+ * @property string $sent_02
+ * @property string $sent_03
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Job newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Job newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Job query()
+ * @mixin \Eloquent
  */
 class Job extends Model
 {
@@ -22,5 +29,8 @@ class Job extends Model
         , 'title'
         , 'href'
         , 'post_datetime'
+        , 'sent_01'
+        , 'sent_02'
+        , 'sent_03'
     ];
 }

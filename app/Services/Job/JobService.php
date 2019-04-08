@@ -3,33 +3,10 @@
 namespace Service;
 
 use App\Libs\Constant\JobCategory;
-use Model\Job;
+use App\Models\Job;
 
 class JobService
 {
-    /**
-     * @var \PDO
-     */
-    private $pdo;
-
-    /**
-     * JobService constructor.
-     *
-     * @param \PDO $pdo
-     */
-    public function __construct(\PDO $pdo)
-    {
-        $this->pdo = $pdo;
-    }
-
-    /**
-     * @return \PDO
-     */
-    public function getPdo() : \PDO
-    {
-        return $this->pdo;
-    }
-
     public function extractNewJobs(array $jobRecords, $latestId): array
     {
         $newJobRecords = [];
@@ -104,5 +81,32 @@ class JobService
         $result = $jobModel->updateAfterSentMail($ids, $sentType);
 
         return $result;
+    }
+
+    public function getLatestId()
+    {
+        $job = Job::orderBy('id', 'desc')
+            ->first();
+
+        return $job->id;
+    }
+
+    public function insertNewJobs(array $newJobRecords) : bool
+    {
+        foreach ($newJobRecords as $insertJobRecord) {
+            $job = new Job();
+            $job->id = $insertJobRecord['id'];
+            $job->category = $insertJobRecord['category'];
+            $job->title = $insertJobRecord['title'];
+            $job->href = $insertJobRecord['href'];
+            $job->post_datetime = $insertJobRecord['post_datetime'];
+            $job->sent_01 = '0';
+            $job->sent_02 = '0';
+            $job->sent_03 = '0';
+
+            $job->save();
+        }
+
+        return true;
     }
 }

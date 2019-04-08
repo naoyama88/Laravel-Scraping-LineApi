@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\TestCommand::class
+        Commands\RegisterJobCommand::class
     ];
 
     /**
@@ -24,11 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        error_log('error_log function1');
+        // TODO これで実現させたい、php artisan schedule:run
+        // いまは php artisan command registerjob で実現している
 //        $schedule->command('command:testcommand')
 //            ->everyMinute()
 //            ->between('8:00', '23:10');
-        echo "aa";
     }
 
     /**
@@ -38,8 +38,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-
-        error_log('error_log function1');
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
