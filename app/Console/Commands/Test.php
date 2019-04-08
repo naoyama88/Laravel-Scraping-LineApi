@@ -41,5 +41,6 @@ class TestCommand extends Command
         echo "asdfasdf";
         Log::info('Success running script.');
         error_log('error_log function');
+        error_log('これがでたらOK');
     }
 }
