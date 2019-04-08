@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use App\Libs\Util;
-use Service\JobService;
+use App\Services\Job\JobService;
 use App\Libs\Constant\JobCategory;
 
 class RegisterJobCommand extends Command

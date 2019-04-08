@@ -28,9 +28,9 @@ class Job extends Model
         , 'category'
         , 'title'
         , 'href'
-        , 'post_datetime'
         , 'sent_01'
         , 'sent_02'
         , 'sent_03'
+        , 'post_datetime'
     ];
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace App\Services\Job;
 
 use App\Libs\Constant\JobCategory;
 use App\Models\Job;
