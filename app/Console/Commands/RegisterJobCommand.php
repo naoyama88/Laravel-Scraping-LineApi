@@ -38,16 +38,16 @@ class RegisterJobCommand extends Command
     {
         Log::info('Success running script.');
         $util = new Util();
-        if ($util->isMidnight(date('H:i:s'))) {
-            Log::info('Now it\'s midnight.');
-            return true;
-        }
+//        if ($util->isMidnight(date('H:i:s'))) {
+//            Log::info('Now it\'s midnight.');
+//            return true;
+//        }
 
         // 0または偶数の場合は仕事情報を取得しない（過負荷防止のため）
-        if ($util->isEvenNumber(date('i'))) {
-            // If it's time which minute tens place number could be 0 or divisible by 2
-            return true;
-        }
+//        if ($util->isEvenNumber(date('i'))) {
+//            // If it's time which minute tens place number could be 0 or divisible by 2
+//            return true;
+//        }
 
         Log::info('start scrape');
         $jobService = new JobService();

@@ -87,6 +87,9 @@ class JobService
     {
         $job = Job::orderBy('id', 'desc')
             ->first();
+        if (empty($job)) {
+            return null;
+        }
 
         return $job->id;
     }
