@@ -1,6 +1,7 @@
 <?php
 
 // date_default_timezone_set('America/Vancouver');
+require '../phpQuery-onefile.php';
 
 /**
  * Laravel - A PHP Framework For Web Artisans

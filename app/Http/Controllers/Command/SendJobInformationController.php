@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Command;
 
 use App\Libs\Util;
 use Illuminate\Support\Facades\Log;
+use App\Services\Job\JobService;
 
 class SendJobInformationController
 {
@@ -21,10 +22,10 @@ class SendJobInformationController
         $sentType = $util->getSentType($isRunFromCli, $_SERVER);
 
         // メールに記載する仕事を取得
-        $jobService = new JobService((new JpCanadaPdo())->getPdo());
+        $jobService = new JobService();
         $todayJobs = $jobService->getTodayJob($sentType);
         if (empty($todayJobs)) {
-            HerokuLog::debugLog('no job has registered today');
+            Log::info('no job has registered today');
             return true;
         }
 
@@ -38,10 +39,10 @@ class SendJobInformationController
             $emailBccs = $registeredUserService->getUserAddresses($sentType);
             if (empty($emailBccs)) {
                 // no address has registered
-                HerokuLog::debugLog('no address has registered');
+                Log::info('no address has registered');
                 return true;
             }
-            HerokuLog::debugLog('Bcc counts ' . count($emailBccs));
+            Log::info('Bcc counts ' . count($emailBccs));
         } else {
             $emailBccs = [getenv("EMAIL_SAMPLE_01")];
         }
@@ -53,7 +54,7 @@ class SendJobInformationController
         if (!empty($response) && substr($response->_status_code, 0, 1) != '2') {
             // http://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/errors.html
             $responseBody = json_decode($response->_body);
-            HerokuLog::debugLog($responseBody->errors->message);
+            Log::info($responseBody->errors->message);
 
             return false;
         }
@@ -62,7 +63,7 @@ class SendJobInformationController
         if ($isRunFromCli === true) {
             $result = $jobService->updateAfterSentMail(array_column($todayJobs, 'id'), $sentType);
             if ($result === false) {
-                HerokuLog::debugLog('fail to update.');
+                Log::info('fail to update.');
                 return false;
             }
         }

@@ -84,6 +84,11 @@ class JobService
         return $result;
     }
 
+    /**
+     * get latest if from job table
+     *
+     * @return mixed|null
+     */
     public function getLatestId()
     {
         $job = Job::orderBy('id', 'desc')
@@ -95,6 +100,12 @@ class JobService
         return $job->id;
     }
 
+    /**
+     * insert new jobs to job table
+     *
+     * @param array $newJobRecords
+     * @return bool
+     */
     public function insertNewJobs(array $newJobRecords) : bool
     {
         foreach ($newJobRecords as $insertJobRecord) {
