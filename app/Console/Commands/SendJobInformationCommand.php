@@ -8,7 +8,7 @@ use App\Libs\Util;
 use App\Services\Job\JobService;
 use App\Services\Job\SendMailService;
 
-class SendJobInformation extends Command
+class SendJobInformationCommand extends Command
 {
     /**
      * The name and signature of the console command.
