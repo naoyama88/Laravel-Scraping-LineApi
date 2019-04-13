@@ -51,12 +51,12 @@ class SendJobInformationCommand extends Command
         }
 
         // 実行元がCLIかの確認、webからの実行の場合最後にupdateをしない
-        $isRunFromCli = !empty($_SERVER['argv']);
-        $sentType = $util->getSentType($isRunFromCli, $_SERVER);
+//        $sentType = $util->getSentType($isRunFromCli, $_SERVER);
 
         // メールに記載する仕事を取得
         $jobService = new JobService();
-        $todayJobs = $jobService->getTodayJob($sentType);
+//        $todayJobs = $jobService->getTodayJob($sentType);
+        $todayJobs = $jobService->getTodayJob('sent_01');
         if (empty($todayJobs)) {
             Log::info('no job has registered today');
             return true;
@@ -70,8 +70,7 @@ class SendJobInformationCommand extends Command
 
         // 送信するアドレス一覧を取得
 //        $registeredUserService = new RegisteredUserService((new JpCanadaPdo())->getPdo()); test
-        $isRunFromCli = false; // test
-        if ($isRunFromCli === true) {
+        if (false) { // test, TODO ユーザーテーブルから取得する処理書く
 //            $emailBccs = $registeredUserService->getUserAddresses($sentType); test
             if (empty($emailBccs)) {
                 // no address has registered
@@ -90,7 +89,6 @@ class SendJobInformationCommand extends Command
         $lineText = $sendMailService->makeLineContentText($todayJobs);
         $lineService->sendLineMessage($lineText);
 
-
         // メール送信が正しく行われたかチェック
         if (!empty($response) && substr($response->_status_code, 0, 1) != '2') {
             // http://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/errors.html
@@ -101,13 +99,12 @@ class SendJobInformationCommand extends Command
         }
 
         // 仕事レコードのアップデート
-        if ($isRunFromCli === true) {
-            $result = $jobService->updateAfterSentMail(array_column($todayJobs, 'id'), $sentType);
-            if ($result === false) {
-                Log::info('fail to update.');
-                return false;
-            }
+        $result = $jobService->updateAfterSentMail(array_column($todayJobs, 'id'), 'sent_01');
+        if ($result === false) {
+            Log::info('fail to update.');
+            return false;
         }
+
         Log::info('success to send');
 
         return true;
