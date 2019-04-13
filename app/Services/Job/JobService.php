@@ -3,8 +3,10 @@
 namespace App\Services\Job;
 
 use App\Libs\Constant\JobCategory;
+use App\Libs\Constant\MailType;
 use App\Models\Job;
 use phpQuery;
+use Illuminate\Support\Facades\Log;
 
 class JobService
 {
@@ -70,8 +72,26 @@ class JobService
 
     public function getTodayJob(string $sentType) : array
     {
-        $jobModel = new Job($this->getPdo());
-        $todayJobs = $jobModel->getJobs(date('Y-m-d 23:00:00', strtotime("-1 day")), date('Y-m-d 23:00:00'), $sentType);
+        $from = date('Y-m-d 23:00:00', strtotime("-1 day"));
+        $to = date('Y-m-d 23:00:00');
+        switch ($sentType) {
+            case MailType::TYPE_01:
+                $sentTypeColumn = MailType::TYPE_01;
+                break;
+            case MailType::TYPE_02:
+                $sentTypeColumn = MailType::TYPE_02;
+                break;
+            case MailType::TYPE_03:
+                $sentTypeColumn = MailType::TYPE_03;
+                break;
+            default:
+                Log::info('送信タイプ異常');
+                return [];
+        }
+        $todayJobs = Job::whereBetween('post_datetime', [$from, $to])
+            ->where($sentTypeColumn, '0')
+            ->orderByDesc('id')
+            ->get();
 
         return $todayJobs;
     }
