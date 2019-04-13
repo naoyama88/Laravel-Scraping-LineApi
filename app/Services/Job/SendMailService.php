@@ -9,31 +9,39 @@ use SendGrid\Mail;
 
 class SendMailService
 {
-    public function makeContentText(array $todayJobs) : string
+    /**
+     * @param $todayJobs [Job]
+     * @return string
+     */
+    public function makeContentText($todayJobs) : string
     {
         $newLine = '<br>';
         $contentText = '<h3>JPCANADA ' . $newLine . '仕事・求人＠バンクーバー</h3>';
         $today = date('Y年n月j日');
         $contentText .= '<h3>本日' . $today . 'に追加されたお仕事です。</h3>';
         $contentText .= $newLine;
-        foreach ($todayJobs as $index => $job) {
+
+        $tempIndex = 1;
+        foreach ($todayJobs as $job) {
             // タイトル
-            $contentText .= '<strong>' . (1 + $index) . ') ' . '</strong><b>' . $job['title'] . '</b>';
+            $contentText .= '<strong>' . $tempIndex . ') ' . '</strong><b>' . $job->title . '</b>';
             $contentText .= $newLine;
 
             // お仕事カテゴリー
             $contentText .= 'カテゴリ： ';
-            $contentText .= JobCategory::CATEGORIES[$job['category']];
+            $contentText .= JobCategory::CATEGORIES[$job->category];
             $contentText .= $newLine;
 
             // リンク
-            $contentText .= $job['href'];
+            $contentText .= $job->href;
             $contentText .= $newLine;
 
             // 入稿時間
-            $contentText .= ' 入稿時間 ' . $job['post_datetime'];
+            $contentText .= ' 入稿時間 ' . $job->post_datetime;
             $contentText .= $newLine;
             $contentText .= $newLine;
+
+            $tempIndex++;
         }
 
         return $contentText;
