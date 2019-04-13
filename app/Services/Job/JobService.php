@@ -70,7 +70,7 @@ class JobService
         return $jobRecords;
     }
 
-    public function getTodayJob(string $sentType) : array
+    public function getTodayJob(string $sentType)
     {
         $from = date('Y-m-d 23:00:00', strtotime("-1 day"));
         $to = date('Y-m-d 23:00:00');
