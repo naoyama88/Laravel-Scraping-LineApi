@@ -8,6 +8,7 @@ use App\Libs\Util;
 use App\Services\Job\JobService;
 use App\Services\Job\SendMailService;
 use App\Services\Line\LineSendMessageService;
+use App\Services\Job\RegisteredUserService;
 
 class SendJobInformationCommand extends Command
 {
@@ -69,18 +70,14 @@ class SendJobInformationCommand extends Command
         Log::info('made text');
 
         // 送信するアドレス一覧を取得
-//        $registeredUserService = new RegisteredUserService((new JpCanadaPdo())->getPdo()); test
-        if (false) { // test, TODO ユーザーテーブルから取得する処理書く
-//            $emailBccs = $registeredUserService->getUserAddresses($sentType); test
-            if (empty($emailBccs)) {
-                // no address has registered
-                Log::info('no address has registered');
-                return true;
-            }
-            Log::info('Bcc counts ' . count($emailBccs));
-        } else {
-            $emailBccs = [getenv("EMAIL_SAMPLE_01")];
+        $registeredUserService = new RegisteredUserService();
+        $emailBccs = $registeredUserService->getUserAddresses('sent_01');
+        if (empty($emailBccs)) {
+            // no address has registered
+            Log::info('no address has registered');
+            return true;
         }
+        Log::info('Bcc counts ' . count($emailBccs));
         Log::info('Let\'s send mail');
 
         // メールを送信
