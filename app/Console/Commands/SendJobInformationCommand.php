@@ -41,6 +41,7 @@ class SendJobInformationCommand extends Command
      */
     public function handle()
     {
+        Log::info('start send_job_information');
         // 実行時間の確認
         $util = new Util();
         if ($util->isMidnight(date('H:i:s'))) {
@@ -59,10 +60,12 @@ class SendJobInformationCommand extends Command
             Log::info('no job has registered today');
             return true;
         }
+        Log::info('jobs exist');
 
         // 取得した仕事からメール本文を作成
         $sendMailService = new SendMailService();
         $contentText = $sendMailService->makeContentText($todayJobs);
+        Log::info('made text');
 
         // 送信するアドレス一覧を取得
 //        $registeredUserService = new RegisteredUserService((new JpCanadaPdo())->getPdo()); test
@@ -78,6 +81,7 @@ class SendJobInformationCommand extends Command
         } else {
             $emailBccs = [getenv("EMAIL_SAMPLE_01")];
         }
+        Log::info('Let\'s send mail');
 
         // メールを送信
         $response = $sendMailService->sendMail($contentText, $emailBccs);
@@ -99,6 +103,7 @@ class SendJobInformationCommand extends Command
                 return false;
             }
         }
+        Log::info('success to send');
 
         return true;
     }
