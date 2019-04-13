@@ -90,4 +90,38 @@ class SendMailService
 
         return $response;
     }
+
+    public function makeLineContentText($todayJobs) : string
+    {
+        $newLine = PHP_EOL;
+        $contentText = 'JPCANADA ' . $newLine . '仕事・求人＠バンクーバー' . PHP_EOL;
+        $today = date('Y年n月j日');
+        $contentText .= '本日' . $today . 'に追加されたお仕事です。' . PHP_EOL;
+        $contentText .= $newLine;
+
+        $tempIndex = 1;
+        foreach ($todayJobs as $job) {
+            // タイトル
+            $contentText .= $tempIndex . ') ' . $job->title;
+            $contentText .= $newLine;
+
+            // お仕事カテゴリー
+            $contentText .= 'カテゴリ： ';
+            $contentText .= JobCategory::CATEGORIES[$job->category];
+            $contentText .= $newLine;
+
+            // リンク
+            $contentText .= $job->href;
+            $contentText .= $newLine;
+
+            // 入稿時間
+            $contentText .= ' 入稿時間 ' . $job->post_datetime;
+            $contentText .= $newLine;
+            $contentText .= $newLine;
+
+            $tempIndex++;
+        }
+
+        return $contentText;
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use App\Libs\Util;
 use App\Services\Job\JobService;
 use App\Services\Job\SendMailService;
+use App\Services\Line\LineSendMessageService;
 
 class SendJobInformationCommand extends Command
 {
@@ -85,6 +86,10 @@ class SendJobInformationCommand extends Command
 
         // メールを送信
         $response = $sendMailService->sendMail($contentText, $emailBccs);
+        $lineService = new LineSendMessageService();
+        $lineText = $sendMailService->makeLineContentText($todayJobs);
+        $lineService->sendLineMessage($lineText);
+
 
         // メール送信が正しく行われたかチェック
         if (!empty($response) && substr($response->_status_code, 0, 1) != '2') {

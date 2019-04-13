@@ -22,6 +22,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::any('/line/callback', 'LineBotController@callback')->name('line.callback');
 });
 
+// /api/test/command
 Route::group(['namespace' => 'Api'], function () {
     Route::any('/test/command', 'CommandController@test')->name('test.command');
 });
