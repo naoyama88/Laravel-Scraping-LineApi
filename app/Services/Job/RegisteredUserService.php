@@ -2,19 +2,15 @@
 
 namespace App\Services\Job;
 
-use App\Libs\Constant\JobCategory;
-use SendGrid\Email;
-use SendGrid\Content;
-use SendGrid\Mail;
+use App\Libs\Constant\MailType;
+use App\Models\RegisteredUser;
 
 class RegisteredUserService
 {
     public function getUserAddresses(string $sentType) : array
     {
-        $registeredUserModel = new RegisteredUser($this->getPdo());
-        $addresses = $registeredUserModel->getUserAddresses($sentType);
-
-        $addresses =
+        $addresses = RegisteredUser::where('email_cycle_status', MailType::MAIL_TYPE[$sentType])
+            ->get();
 
         return $addresses;
     }
