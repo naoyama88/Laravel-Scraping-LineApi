@@ -53,7 +53,8 @@ class Util
     public function getSentType(bool $isRunFromCli, $globalVarServer = null)
     {
         if ($isRunFromCli) {
-            return $globalVarServer['argv'][1];
+//            return $globalVarServer['argv'][1];
+            return 'sent_01';
         }
 
         Log::info('run not from cli');
