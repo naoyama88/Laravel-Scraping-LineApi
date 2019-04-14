@@ -98,10 +98,22 @@ class JobService
 
     public function updateAfterSentMail($ids, $sentType)
     {
-        $jobModel = new Job($this->getPdo());
-        $result = $jobModel->updateAfterSentMail($ids, $sentType);
-
-        return $result;
+        switch ($sentType) {
+            case MailType::TYPE_01:
+                $sentTypeColumn = MailType::TYPE_01;
+                break;
+            case MailType::TYPE_02:
+                $sentTypeColumn = MailType::TYPE_02;
+                break;
+            case MailType::TYPE_03:
+                $sentTypeColumn = MailType::TYPE_03;
+                break;
+            default:
+                Log::info('送信タイプ異常');
+                return [];
+        }
+        Job::whereIn('id', $ids)
+            ->update([$sentTypeColumn => 1]);
     }
 
     /**
