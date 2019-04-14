@@ -58,7 +58,7 @@ class SendMailService
         $content = new Content("text/html", $contentText);
         $mail = new Mail($from, $subject, $tos, $content);
         foreach ($emailBccs as $bcc) {
-            $mail->getPersonalizations()[0]->addBcc(new Email(null, $bcc));
+            $mail->getPersonalizations()[0]->addBcc(new Email(null, $bcc->email));
         }
 
         $apiKey = getenv('SENDGRID_API_KEY');

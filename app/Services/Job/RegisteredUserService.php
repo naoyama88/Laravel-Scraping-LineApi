@@ -7,7 +7,7 @@ use App\Models\RegisteredUser;
 
 class RegisteredUserService
 {
-    public function getUserAddresses(string $sentType) : array
+    public function getUserAddresses(string $sentType)
     {
         $addresses = RegisteredUser::where('email_cycle_status', MailType::MAIL_TYPE[$sentType])
             ->get();
