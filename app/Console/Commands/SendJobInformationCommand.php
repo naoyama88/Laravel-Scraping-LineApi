@@ -51,7 +51,6 @@ class SendJobInformationCommand extends Command
             return true;
         }
 
-        // 実行元がCLIかの確認、webからの実行の場合最後にupdateをしない
 //        $sentType = $util->getSentType($isRunFromCli, $_SERVER);
 
         // メールに記載する仕事を取得
@@ -67,6 +66,11 @@ class SendJobInformationCommand extends Command
         // 取得した仕事からメール本文を作成
         $sendMailService = new SendMailService();
         $contentText = $sendMailService->makeContentText($todayJobs);
+        $lineService = new LineSendMessageService();
+        $lineText = $sendMailService->makeLineContentText($todayJobs);
+        echo '<pre>';
+        print_r($todayJobs);
+        echo '</pre>';
         Log::info('made text');
 
         // 送信するアドレス一覧を取得
@@ -82,8 +86,7 @@ class SendJobInformationCommand extends Command
 
         // メールを送信
         $response = $sendMailService->sendMail($contentText, $emailBccs);
-        $lineService = new LineSendMessageService();
-        $lineText = $sendMailService->makeLineContentText($todayJobs);
+        // ラインを送信
         $lineService->sendLineMessage($lineText);
 
         // メール送信が正しく行われたかチェック
