@@ -57,7 +57,7 @@ class SendJobInformationCommand extends Command
         $jobService = new JobService();
 //        $todayJobs = $jobService->getTodayJob($sentType);
         $todayJobs = $jobService->getTodayJob('sent_01');
-        if (empty($todayJobs)) {
+        if (empty($todayJobs) || count($todayJobs) === 0) {
             Log::info('no job has registered today');
             return true;
         }
