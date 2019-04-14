@@ -96,7 +96,7 @@ class SendJobInformationCommand extends Command
         }
 
         // 仕事レコードのアップデート
-        $result = $jobService->updateAfterSentMail(array_column($todayJobs, 'id'), 'sent_01');
+        $result = $jobService->updateAfterSentMail($todayJobs->pluck('id'), 'sent_01');
         if ($result === false) {
             Log::info('fail to update.');
             return false;
