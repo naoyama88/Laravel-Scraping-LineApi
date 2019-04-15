@@ -36,21 +36,21 @@ class FollowService
         try {
             DB::beginTransaction();
 
-            $line_id = $event->getUserId();
-            $rsp = $this->bot->getProfile($line_id);
+            $lineId = $event->getUserId();
+            $rsp = $this->bot->getProfile($lineId);
             if (!$rsp->isSucceeded()) {
                 Log::info('failed to get profile. skip processing.');
                 return false;
             }
 
             $profile = $rsp->getJSONDecodedBody();
-            $line_friend = new LineFriend();
+            $lineFriend = new LineFriend();
             $input = [
-                'line_id' => $line_id,
+                'line_id' => $lineId,
                 'display_name' => $profile['displayName'],
             ];
 
-            $line_friend->fill($input)->save();
+            $lineFriend->fill($input)->save();
             DB::commit();
 
             return true;
