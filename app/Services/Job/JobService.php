@@ -156,4 +156,16 @@ class JobService
 
         return true;
     }
+
+    public function getJobsByText(string $userText)
+    {
+        $from = date('Y-m-d 00:00:00', strtotime("-1 month"));
+        $to = date('Y-m-d H:i:s');
+        $todayJobs = Job::whereBetween('post_datetime', [$from, $to])
+            ->where('title', 'like', $userText)
+            ->orderByDesc('id')
+            ->get();
+
+        return $todayJobs;
+    }
 }

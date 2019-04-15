@@ -2,8 +2,9 @@
 
 namespace App\Services\Line\Event;
 
+use App\Services\Job\JobService;
+use App\Services\Job\SendMailService;
 use LINE\LINEBot;
-use DB;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
 
 class ReceiveTextService
@@ -29,7 +30,19 @@ class ReceiveTextService
      */
     public function execute(TextMessage $event)
     {
-        return $event->getText() . 'じゃねーよ！';
+        $userText = $event->getText();
+        $jobService = new JobService();
+        // get job information related with the word user sent
+        $jobs = $jobService->getJobsByText($userText);
+        if (empty($jobs) || count($jobs) === 0) {
+            return '"' . $userText . '"がタイトルに含まれるお仕事情報はありませんでした。（過去1ヶ月分対象）';
+        }
+
+        $sendMailService = new SendMailService();
+        $lineText = $sendMailService->makeLineContentText($jobs);
+        $lineText = '"' . $userText . '"がタイトルに含まれるお仕事情報が' . count($jobs) . '件見つかりました。（過去1ヶ月分対象）' . PHP_EOL . $lineText;
+
+        return $lineText;
     }
 
 }
