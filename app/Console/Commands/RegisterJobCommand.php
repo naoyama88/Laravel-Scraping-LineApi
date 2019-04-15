@@ -34,6 +34,7 @@ class RegisterJobCommand extends Command
         parent::__construct();
     }
 
+    // 1時間に3回、1日に約35〜46回(herokuスケジューラのミスに依存)jpcanadaにアクセスし情報を取得
     public function handle()
     {
         Log::info('Success running script.');
@@ -43,7 +44,7 @@ class RegisterJobCommand extends Command
             return true;
         }
 
-        // 0または偶数の場合は仕事情報を取得しない（過負荷防止のため）
+        // 実行時の時間における分(minutes)の十の位が偶数(0,2,4)の場合は仕事情報を取得しない（過負荷防止のため）
         if ($util->isEvenNumber(date('i'))) {
             // If it's time which minute tens place number could be 0 or divisible by 2
             return true;
