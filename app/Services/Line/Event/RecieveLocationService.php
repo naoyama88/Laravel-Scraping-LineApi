@@ -5,7 +5,7 @@ namespace App\Services\Line\Event;
 use LINE\LINEBot;
 use LINE\LINEBot\Event\MessageEvent\LocationMessage;
 
-class RecieveLocationService
+class ReceiveLocationService
 {
     /**
      * @var LineBot

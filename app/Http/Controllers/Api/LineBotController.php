@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Services\Line\Event\RecieveLocationService;
+use App\Services\Line\Event\ReceiveLocationService;
 use App\Services\Line\Event\ReceiveTextService;
 use App\Services\Line\Event\FollowService;
 use App\Services\Line\Event\UnfollowService;
@@ -68,7 +68,7 @@ class LineBotController
 
                 //位置情報の受信
                 case $event instanceof LocationMessage:
-                    $service = new RecieveLocationService($bot);
+                    $service = new ReceiveLocationService($bot);
                     $replyMessage = $service->execute($event);
                     break;
 
