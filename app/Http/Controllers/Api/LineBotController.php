@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Services\Line\Event\RecieveLocationService;
-use App\Services\Line\Event\RecieveTextService;
+use App\Services\Line\Event\ReceiveTextService;
 use App\Services\Line\Event\FollowService;
 use Illuminate\Http\Request;
 use LINE\LINEBot;
@@ -51,7 +51,7 @@ class LineBotController
                     break;
                 //メッセージの受信
                 case $event instanceof TextMessage:
-                    $service = new RecieveTextService($bot);
+                    $service = new ReceiveTextService($bot);
                     $replyMessage = $service->execute($event);
                     break;
 

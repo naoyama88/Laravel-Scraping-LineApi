@@ -6,7 +6,7 @@ use LINE\LINEBot;
 use DB;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
 
-class RecieveTextService
+class ReceiveTextService
 {
     /**
      * @var LineBot
