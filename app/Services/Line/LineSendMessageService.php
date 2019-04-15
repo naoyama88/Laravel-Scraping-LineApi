@@ -9,7 +9,7 @@ class LineSendMessageService
     public function sendLineMessage($text)
     {
         $bot = app('line-bot');
-        $lineId = 'U77aca8442a34fea506dfc9990738d242';
+        $lineId = env('LINE_ID_SAMPLE');
         $textMessageBuilder = new TextMessageBuilder($text);
         $response = $bot->pushMessage($lineId, $textMessageBuilder);
     }
