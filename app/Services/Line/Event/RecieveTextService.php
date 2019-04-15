@@ -35,7 +35,7 @@ class ReceiveTextService
         // get job information related with the word user sent
         $jobs = $jobService->getJobsByText($userText);
         if (empty($jobs) || count($jobs) === 0) {
-            return '"' . $userText . '"がタイトルに含まれるお仕事情報はありませんでした。（過去1ヶ月分対象）';
+            return '"' . $userText . '"がタイトルに含まれるお仕事情報はありませんでした。（過去1ヶ月分対象）' . PHP_EOL;
         }
 
         $sendMailService = new SendMailService();
