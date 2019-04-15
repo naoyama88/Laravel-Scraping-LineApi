@@ -96,7 +96,6 @@ class SendMailService
     public function makeLineContentText($todayJobs) : string
     {
         $newLine = PHP_EOL;
-        $today = date('Y年n月j日');
         $contentText = '';
 
         $tempIndex = 1;

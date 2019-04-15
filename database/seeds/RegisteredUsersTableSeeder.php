@@ -18,12 +18,12 @@ class RegisteredUsersTableSeeder extends Seeder
                 'email_cycle_status' => '1',
             ],
             [
-                'email' => getenv("EMAIL_SAMPLE_01"),
+                'email' => getenv("EMAIL_SAMPLE_02"),
                 'name' => 'sample_user_02',
                 'email_cycle_status' => '2',
             ],
             [
-                'email' => getenv("EMAIL_SAMPLE_01"),
+                'email' => getenv("EMAIL_SAMPLE_03"),
                 'name' => 'sample_user_03',
                 'email_cycle_status' => '3',
             ]
