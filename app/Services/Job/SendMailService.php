@@ -91,13 +91,13 @@ class SendMailService
         return $response;
     }
 
+    // LINEメッセージではJPCANADAアカウントから届くので、
+    // メールでのメッセージにあるような「...追加されたお仕事です」などはしない
     public function makeLineContentText($todayJobs) : string
     {
         $newLine = PHP_EOL;
-        $contentText = 'JPCANADA ' . $newLine . '仕事・求人＠バンクーバー' . PHP_EOL;
         $today = date('Y年n月j日');
-        $contentText .= '本日' . $today . 'に追加されたお仕事です。' . PHP_EOL;
-        $contentText .= $newLine;
+        $contentText = '';
 
         $tempIndex = 1;
         foreach ($todayJobs as $job) {
@@ -121,6 +121,8 @@ class SendMailService
 
             $tempIndex++;
         }
+
+        $contentText = rtrim($contentText, PHP_EOL);
 
         return $contentText;
     }
