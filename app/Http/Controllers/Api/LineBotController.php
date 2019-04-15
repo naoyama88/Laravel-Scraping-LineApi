@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Services\Line\Event\RecieveLocationService;
 use App\Services\Line\Event\ReceiveTextService;
 use App\Services\Line\Event\FollowService;
+use App\Services\Line\Event\UnfollowService;
 use Illuminate\Http\Request;
 use LINE\LINEBot;
 use Illuminate\Support\Facades\Log;
@@ -76,6 +77,8 @@ class LineBotController
                     break;
                 //ブロック
                 case $event instanceof UnfollowEvent:
+                    $service = new UnfollowService($bot);
+                    $service->execute($event);
                     break;
                 default:
                     // 例:
