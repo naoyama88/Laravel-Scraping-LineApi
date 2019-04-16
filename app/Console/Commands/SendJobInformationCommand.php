@@ -39,6 +39,8 @@ class SendJobInformationCommand extends Command
     /**
      * Execute the console command.
      *
+     * TODO consider how to handle sent_type
+     *
      * @return mixed
      */
     public function handle()
@@ -55,7 +57,6 @@ class SendJobInformationCommand extends Command
 
         // メールに記載する仕事を取得
         $jobService = new JobService();
-//        $todayJobs = $jobService->getTodayJob($sentType);
         $todayJobs = $jobService->getTodayJob('sent_01');
         if (empty($todayJobs) || count($todayJobs) === 0) {
             Log::info('no job has registered today');
@@ -68,10 +69,6 @@ class SendJobInformationCommand extends Command
         $contentText = $sendMailService->makeContentText($todayJobs);
         $lineService = new LineSendMessageService();
         $lineText = $sendMailService->makeLineContentText($todayJobs);
-        echo '<pre>';
-        print_r($todayJobs);
-        echo '</pre>';
-        Log::info('made text');
 
         // 送信するアドレス一覧を取得
         $registeredUserService = new RegisteredUserService();
@@ -82,7 +79,7 @@ class SendJobInformationCommand extends Command
             return true;
         }
         Log::info('Bcc counts ' . count($emailBccs));
-        Log::info('Let\'s send mail');
+        Log::info('start sending mail');
 
         // メールを送信
         $response = $sendMailService->sendMail($contentText, $emailBccs);
@@ -97,6 +94,8 @@ class SendJobInformationCommand extends Command
 
             return false;
         }
+
+        Log::info('finish sending mail');
 
         // 仕事レコードのアップデート
         $result = $jobService->updateAfterSentMail($todayJobs->pluck('id'), 'sent_01');
