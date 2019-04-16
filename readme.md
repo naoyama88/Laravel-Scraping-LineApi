@@ -51,4 +51,4 @@
 - This app definitely does not obstruct the website jpcanada
     - 2 or 3 times access per an hour
     - access to jpcanada between 35 and 46 times in a day (depends on the heroku scheduler)
-    - not to access jpcanada during midnight (11pm to 8am)
+    - This does not access jpcanada during midnight (11pm to 8am)
