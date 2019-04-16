@@ -1,7 +1,7 @@
 # naoyama88-jcl
-
-<img src="https://user-images.githubusercontent.com/15808541/56231258-e51c9e00-6032-11e9-85b8-febc45a33d55.png" alt="drawing" width="200"/>
-<img src="https://user-images.githubusercontent.com/15808541/56231227-d0d8a100-6032-11e9-92a7-6155b29831e5.png" alt="drawing" width="200"/>
+|Screen shot 1|Screen shot 2|
+|---|---|
+|![](https://user-images.githubusercontent.com/15808541/56231258-e51c9e00-6032-11e9-85b8-febc45a33d55.png)|![](https://user-images.githubusercontent.com/15808541/56231227-d0d8a100-6032-11e9-92a7-6155b29831e5.png)|
 
 ## For users
 
