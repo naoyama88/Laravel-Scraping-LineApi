@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Log;
 
 class JobService
 {
+    /**
+     * @param array $jobRecords
+     * @param $latestId
+     * @return array
+     */
     public function extractNewJobs(array $jobRecords, $latestId): array
     {
         $newJobRecords = [];
@@ -70,6 +75,10 @@ class JobService
         return $jobRecords;
     }
 
+    /**
+     * @param string $sentType
+     * @return array|\Illuminate\Support\Collection
+     */
     public function getTodayJob(string $sentType)
     {
         $from = date('Y-m-d 23:00:00', strtotime("-1 day"));
@@ -96,6 +105,11 @@ class JobService
         return $todayJobs;
     }
 
+    /**
+     * @param $ids
+     * @param $sentType
+     * @return array
+     */
     public function updateAfterSentMail($ids, $sentType)
     {
         switch ($sentType) {
@@ -140,6 +154,7 @@ class JobService
      */
     public function insertNewJobs(array $newJobRecords) : bool
     {
+        // dev: should by multiple insert?
         foreach ($newJobRecords as $insertJobRecord) {
             $job = new Job();
             $job->id = $insertJobRecord['id'];
@@ -157,6 +172,10 @@ class JobService
         return true;
     }
 
+    /**
+     * @param string $userText
+     * @return \Illuminate\Support\Collection
+     */
     public function getJobsByText(string $userText)
     {
         $from = date('Y-m-d 00:00:00', strtotime("-1 month"));

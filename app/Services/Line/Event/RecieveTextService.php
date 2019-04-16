@@ -24,11 +24,11 @@ class ReceiveTextService
     }
 
     /**
-     * 登録
+     * 検索
      * @param TextMessage $event
      * @return string
      */
-    public function execute(TextMessage $event)
+    public function execute(TextMessage $event) : string
     {
         $userText = $event->getText();
         $jobService = new JobService();

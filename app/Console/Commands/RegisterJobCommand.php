@@ -37,7 +37,7 @@ class RegisterJobCommand extends Command
     // 1時間に3回、1日に約35〜46回(herokuスケジューラのミスに依存)jpcanadaにアクセスし情報を取得
     public function handle()
     {
-        Log::info('Success running script.');
+        Log::info('Start scraping');
         $util = new Util();
         if ($util->isMidnight(date('H:i:s'))) {
             Log::info('Now it\'s midnight.');
@@ -45,14 +45,16 @@ class RegisterJobCommand extends Command
         }
 
         // 実行時の時間における分(minutes)の十の位が偶数(0,2,4)の場合は仕事情報を取得しない（過負荷防止のため）
-        if ($util->isEvenNumber(date('i'))) {
-            // If it's time which minute tens place number could be 0 or divisible by 2
+        $minutes = date('i');
+        if ($util->isEvenNumber($minutes)) {
+            Log::info('Now it\'s not time to scrape because the minutes is' . $minutes . '.');
             return true;
         }
 
-        Log::info('start scrape');
         $jobService = new JobService();
+        Log::info('start going scraping');
         $listedJobs = $jobService->scrapeJobs();
+        Log::info('finish going scraping');
         if (empty($listedJobs)) {
             Log::info('no job or could not get job');
             return false;
@@ -64,8 +66,6 @@ class RegisterJobCommand extends Command
             return false;
         }
 
-        Log::info('just checked unknown category');
-
         $latestId = $jobService->getLatestId();
         $newJobRecords = $jobService->extractNewJobs($listedJobs, $latestId);
 
@@ -75,13 +75,8 @@ class RegisterJobCommand extends Command
             return true;
         }
 
-        echo '<pre>';
-        print_r($newJobRecords);
-        echo '</pre>';
-        Log::info('new jobs exist');
-
         $result = $jobService->insertNewJobs($newJobRecords);
-        Log::info('inserted jobs');
+        Log::info('insert jobs');
 
         return $result;
 

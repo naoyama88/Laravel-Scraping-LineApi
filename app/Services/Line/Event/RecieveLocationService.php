@@ -28,7 +28,9 @@ class ReceiveLocationService
      */
     public function execute(LocationMessage $event)
     {
-        return "あなたの現在地：\n".$event->getAddress();
+        $string = "あなたの現在地は：" . PHP_EOL .$event->getAddress() . 'です。';
+        $string .= PHP_EOL . '現在地を利用するサービスは提供していません。';
+        return $string;
     }
 
 }

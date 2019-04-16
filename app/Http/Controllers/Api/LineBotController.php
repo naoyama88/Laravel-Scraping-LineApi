@@ -66,7 +66,7 @@ class LineBotController
                     $replyMessage = $service->execute($event);
                     break;
 
-                //位置情報の受信
+                //位置情報の受信(nothing to do)
                 case $event instanceof LocationMessage:
                     $service = new ReceiveLocationService($bot);
                     $replyMessage = $service->execute($event);
@@ -74,6 +74,7 @@ class LineBotController
 
                 //選択肢とか選んだ時に受信するイベント
                 case $event instanceof PostbackEvent:
+                    // TODO anything
                     break;
                 //ブロック
                 case $event instanceof UnfollowEvent:
@@ -81,7 +82,6 @@ class LineBotController
                     $service->execute($event);
                     break;
                 default:
-                    // 例:
                     $body = $event->getEventSourceId();
                     Log::warning('Unknown event. ['. get_class($event) . ']', compact('body'));
             }
