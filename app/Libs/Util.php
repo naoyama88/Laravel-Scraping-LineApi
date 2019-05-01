@@ -13,8 +13,8 @@ class Util
     public function isMidnight(string $now)
     {
         $nowTimestamp = strtotime($now);
-        $startMidnight = strtotime(date('23:20:00'));
-        $endMidnight = strtotime(date('08:00:00'));
+        $startMidnight = strtotime(date(env('DO_NOT_DISTURB_FROM', '23:20:00')));
+        $endMidnight = strtotime(date(env('DO_NOT_DISTURB_TO', '08:00:00')));
         if ($nowTimestamp <= $startMidnight && $endMidnight <= $nowTimestamp) {
             // not midnight
             return false;
