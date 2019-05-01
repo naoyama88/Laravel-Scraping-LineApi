@@ -37,14 +37,14 @@ class RegisterJobCommand extends Command
     // 1時間に3回、1日に約35〜46回(herokuスケジューラのミスに依存)jpcanadaにアクセスし情報を取得
     public function handle()
     {
-        Log::info('Start scraping');
         $util = new Util();
         if ($util->isMidnight(date('H:i:s'))) {
             Log::info('Now it\'s midnight.');
             return true;
         }
 
-        // 実行時の時間における分(minutes)の十の位が偶数(0,2,4)の場合は仕事情報を取得しない（過負荷防止のため）
+        // the scheduler is expected to be set every 10 minutes
+        // don't get job info if the tens place of the minutes is even number (not to access many times)
         $minutes = date('i');
         if ($util->isEvenNumber($minutes)) {
             Log::info('Now it\'s not time to scrape because the minutes is' . $minutes . '.');
@@ -52,14 +52,13 @@ class RegisterJobCommand extends Command
         }
 
         $jobService = new JobService();
-        Log::info('start going scraping');
         $listedJobs = $jobService->scrapeJobs();
-        Log::info('finish going scraping');
         if (empty($listedJobs)) {
             Log::info('no job or could not get job');
             return false;
         }
 
+        // just in case if something in the site I scrape has been changed
         $unknownCategory = array_diff(array_column($listedJobs, 'category'), array_keys(JobCategory::CATEGORIES));
         if (!empty($unknownCategory)) {
             Log::info("Unknown category has been found. Any other categories might have been added possibly.");
@@ -76,7 +75,6 @@ class RegisterJobCommand extends Command
         }
 
         $result = $jobService->insertNewJobs($newJobRecords);
-        Log::info('insert jobs');
 
         return $result;
 

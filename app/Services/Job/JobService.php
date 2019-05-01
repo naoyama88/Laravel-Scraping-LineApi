@@ -27,7 +27,7 @@ class JobService
                 if ($jobRecord['id'] > $latestId) {
                     $newJobRecords[] = $jobRecord;
                 } else {
-                    // break because the jobRecords have been already sorted so you don't need to continue anymore
+                    // jobRecords have already been sorted. no need to continue loop
                     break;
                 }
             }

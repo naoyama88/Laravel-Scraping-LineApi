@@ -13,17 +13,17 @@ class RegisteredUsersTableSeeder extends Seeder
     {
         DB::table('registered_users')->insert([
             [
-                'email' => getenv("EMAIL_SAMPLE_01"),
+                'email' => env("EMAIL_SAMPLE_01", 'hoge@example.com'),
                 'name' => 'sample_user_01',
                 'email_cycle_status' => '1',
             ],
             [
-                'email' => getenv("EMAIL_SAMPLE_02"),
+                'email' => env("EMAIL_SAMPLE_02", 'hoge@example.com'),
                 'name' => 'sample_user_02',
                 'email_cycle_status' => '2',
             ],
             [
-                'email' => getenv("EMAIL_SAMPLE_03"),
+                'email' => env("EMAIL_SAMPLE_03", 'hoge@example.com'),
                 'name' => 'sample_user_03',
                 'email_cycle_status' => '3',
             ]
