@@ -25,6 +25,7 @@ class LineBotController
      */
     public function callback(Request $request)
     {
+        Log::info('get it!');
         /** @var LINEBot $bot */
         $bot = app('line-bot');
 
