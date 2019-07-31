@@ -20,7 +20,8 @@ class LineSendMessageService
     {
         $bot = app('line-bot');
 //        $lineIds[] = env('LINE_ID_SAMPLE'); // for test
-        $lineIds = LineFriend::get(['line_id'])->toArray();
+//        $lineIds = LineFriend::get(['line_id'])->toArray();
+        $lineIds = LineFriend::get(['line_id']);
         $textMessageBuilder = new TextMessageBuilder($text);
         Log::info($lineIds);
 //        $response = $bot->multicast($lineIds, $textMessageBuilder);
