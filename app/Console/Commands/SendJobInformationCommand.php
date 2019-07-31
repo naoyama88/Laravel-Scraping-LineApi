@@ -47,11 +47,11 @@ class SendJobInformationCommand extends Command
     {
         Log::info('start send_job_information');
         // 実行時間の確認
-        $util = new Util();
-        if ($util->isMidnight(date('H:i:s'))) {
-            Log::info('Now it\'s midnight.');
-            return true;
-        }
+//        $util = new Util();
+//        if ($util->isMidnight(date('H:i:s'))) {
+//            Log::info('Now it\'s midnight.');
+//            return true;
+//        }
 
 //        $sentType = $util->getSentType($isRunFromCli, $_SERVER);
 
@@ -87,24 +87,24 @@ class SendJobInformationCommand extends Command
         $lineService->sendLineMessage($lineText);
 
         // メール送信が正しく行われたかチェック
-        if (!empty($response) && substr($response->_status_code, 0, 1) != '2') {
-            // http://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/errors.html
-            $responseBody = json_decode($response->_body);
-            Log::info($responseBody->errors->message);
-
-            return false;
-        }
-
-        Log::info('finish sending mail');
-
-        // 仕事レコードのアップデート
-        $result = $jobService->updateAfterSentMail($todayJobs->pluck('id'), 'sent_01');
-        if ($result === false) {
-            Log::info('fail to update.');
-            return false;
-        }
-
-        Log::info('success to send');
+//        if (!empty($response) && substr($response->_status_code, 0, 1) != '2') {
+//            // http://sendgrid.com/docs/API_Reference/Web_API_v3/Mail/errors.html
+//            $responseBody = json_decode($response->_body);
+//            Log::info($responseBody->errors->message);
+//
+//            return false;
+//        }
+//
+//        Log::info('finish sending mail');
+//
+//        // 仕事レコードのアップデート
+//        $result = $jobService->updateAfterSentMail($todayJobs->pluck('id'), 'sent_01');
+//        if ($result === false) {
+//            Log::info('fail to update.');
+//            return false;
+//        }
+//
+//        Log::info('success to send');
 
         return true;
     }
