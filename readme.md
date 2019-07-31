@@ -5,22 +5,24 @@
 
 ## For users
 
-### What is this
-- Web application
-    - scrape http://bbs.jpcanada.com
-    - send message
+### What is this　これは何か
+- Web application　Webアプリです
+    - scrape http://bbs.jpcanada.com　jpカナダのサイトをスクレイピングして情報を取得します。
+    - send message　メッセージを送ります
         - LINE
-        - mail (now it does not work because something wrong happened with SendGrid and heroku)
+        - mail (now it does not work because something wrong happened with SendGrid and heroku)　現在停止中
 
-### Who this is for
-- For users who want to know the job information posted on jpcanada as soon as possible
+### Who this is for　誰のためのもの
+- For users who want to get job information in vancouver posted on jpcanada as soon as possible
+- jpカナダ上に投稿されたバンクーバーのお仕事情報をいち早く手に入れたい方に
 
-### How to use (for users)
+### How to use (for users)　使い方
 - Be friends with the bot on LINE
+- LINE上でこのボットと友達になってください。
 
 <img src="https://user-images.githubusercontent.com/15808541/62243205-a87e7380-b391-11e9-9f0f-1325747e3445.png" width="240">
 
-- Or register the email address (not in service now)
+- Or register the email address (not in service now)　メール配信（停止中）
     - You can get job information posted on jpcanada as soon as possible
 
 ## For developers
