@@ -57,32 +57,34 @@ class SendJobInformationCommand extends Command
 
         // メールに記載する仕事を取得
         $jobService = new JobService();
-        $todayJobs = $jobService->getTodayJob('sent_01');
-        if (empty($todayJobs) || count($todayJobs) === 0) {
-            Log::info('no job has registered today');
-            return true;
-        }
-        Log::info('jobs exist');
-
-        // 取得した仕事からメール本文を作成
+//        $todayJobs = $jobService->getTodayJob('sent_01');
+//        if (empty($todayJobs) || count($todayJobs) === 0) {
+//            Log::info('no job has registered today');
+//            return true;
+//        }
+//        Log::info('jobs exist');
+//
+//        // 取得した仕事からメール本文を作成
         $sendMailService = new SendMailService();
-        $contentText = $sendMailService->makeContentText($todayJobs);
+//        $contentText = $sendMailService->makeContentText($todayJobs);
+        $contentText = ''; // fixme test
         $lineService = new LineSendMessageService();
-        $lineText = $sendMailService->makeLineContentText($todayJobs);
-
-        // 送信するアドレス一覧を取得
-        $registeredUserService = new RegisteredUserService();
-        $emailBccs = $registeredUserService->getUserAddresses('sent_01');
-        if (empty($emailBccs)) {
-            // no address has registered
-            Log::info('no address has registered');
-            return true;
-        }
-        Log::info('Bcc counts ' . count($emailBccs));
-        Log::info('start sending mail');
-
-        // メールを送信
-        $response = $sendMailService->sendMail($contentText, $emailBccs);
+//        $lineText = $sendMailService->makeLineContentText($todayJobs);
+        $lineText = 'aa'; // fixme test
+//
+//        // 送信するアドレス一覧を取得
+//        $registeredUserService = new RegisteredUserService();
+//        $emailBccs = $registeredUserService->getUserAddresses('sent_01');
+//        if (empty($emailBccs)) {
+//            // no address has registered
+//            Log::info('no address has registered');
+//            return true;
+//        }
+//        Log::info('Bcc counts ' . count($emailBccs));
+//        Log::info('start sending mail');
+//
+//        // メールを送信
+//        $response = $sendMailService->sendMail($contentText, $emailBccs);
         // ラインを送信
         $lineService->sendLineMessage($lineText);
 
