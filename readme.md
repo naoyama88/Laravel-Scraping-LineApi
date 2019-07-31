@@ -16,7 +16,10 @@
 - For users who want to know the job information posted on jpcanada as soon as possible
 
 ### How to use (for users)
-- Be friends with the bot on LINE (please contact me to get LINE account information)
+- Be friends with the bot on LINE
+
+<img src="https://user-images.githubusercontent.com/15808541/62243205-a87e7380-b391-11e9-9f0f-1325747e3445.png" width="240">
+
 - Or register the email address (not in service now)
     - You can get job information posted on jpcanada as soon as possible
 
@@ -26,6 +29,8 @@
 - heroku (free)
 - PHP 7.3
 - Laravel 5.5
+    - use Laravel-LINEApiBot model from this website
+    - https://qiita.com/sh-ogawa/items/2238e579d7ee538025a0
 - specific PHP libraries
     - phpQuery
     - SendGrid
@@ -45,10 +50,12 @@
     - migrate DB
     - setting on heroku
     - make .env file (if using heroku, set VARS on heroku (heroku config) )
-- maybe that's it
 
 ### Other
 - This app definitely does not obstruct the website jpcanada
     - 2 or 3 times access per an hour
     - access to jpcanada between 35 and 46 times in a day (depends on the heroku scheduler)
     - This does not access jpcanada during midnight (11pm to 8am)
+
+### Test code
+- making now
