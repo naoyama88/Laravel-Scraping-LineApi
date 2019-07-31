@@ -7,7 +7,8 @@
 
 ### What is this　これは何か
 - Web application　Webアプリです
-    - scrape http://bbs.jpcanada.com　jpカナダのサイトをスクレイピングして情報を取得します。
+    - scrape http://bbs.jpcanada.com
+    - jpカナダのサイトをスクレイピングして情報を取得します。
     - send message　メッセージを送ります
         - LINE
         - mail (now it does not work because something wrong happened with SendGrid and heroku)　現在停止中
