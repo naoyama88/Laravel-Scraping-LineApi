@@ -3,27 +3,40 @@
 |---|---|
 |![](https://user-images.githubusercontent.com/15808541/56231258-e51c9e00-6032-11e9-85b8-febc45a33d55.png)|![](https://user-images.githubusercontent.com/15808541/56231227-d0d8a100-6032-11e9-92a7-6155b29831e5.png)|
 
-## For users
+## 日本人ユーザーの方へ
 
-### What is this　これは何か
-- Web application　Webアプリです
-    - scrape http://bbs.jpcanada.com
-    - jpカナダのサイトをスクレイピングして情報を取得します。
-    - send message　メッセージを送ります
-        - LINE
-        - mail (now it does not work because something wrong happened with SendGrid and heroku)　現在停止中
+### これはなにか
+- JPカナダの新着バンクーバー求人情報をLINEに流してくれるBotアプリケーションです。
+    - こちらから取得します。　http://bbs.jpcanada.com/listing.php?bbs=4&order=2
+    - ラインにメッセージを送ります。（メールサービスは現在停止中）
+    - JPカナダ上に投稿されたバンクーバーのお仕事情報をいち早く手に入れたい方におすすめです。
 
-### Who this is for　誰のためのもの
-- For users who want to get job information in vancouver posted on jpcanada as soon as possible
-- jpカナダ上に投稿されたバンクーバーのお仕事情報をいち早く手に入れたい方に
-
-### How to use (for users)　使い方
-- Be friends with the bot on LINE
+### 使い方
 - LINE上でこのボットと友達になってください。
 
 <img src="https://user-images.githubusercontent.com/15808541/62243205-a87e7380-b391-11e9-9f0f-1325747e3445.png" width="240">
 
-- Or register the email address (not in service now)　メール配信（停止中）
+- バンクーバー時間で朝8時から夜11時の間に、お仕事情報がこのボットから通知されます。
+- 通知からJPカナダのサイトに飛んでお仕事の詳細情報を確認できます。
+
+## For users
+
+### What is this
+- Web application
+    - scrape from http://bbs.jpcanada.com
+    - send message
+        - LINE
+        - mail (now it does not work because something wrong happened with SendGrid and heroku)
+
+### Who this is for
+- For users who want to get job information in vancouver posted on jpcanada as soon as possible
+
+### How to use (for users)
+- Be friends with the bot on LINE
+
+<img src="https://user-images.githubusercontent.com/15808541/62243205-a87e7380-b391-11e9-9f0f-1325747e3445.png" width="240">
+
+- Or register the email address (not in service now)
     - You can get job information posted on jpcanada as soon as possible
 
 ## For developers
