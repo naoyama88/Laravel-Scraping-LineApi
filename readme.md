@@ -23,7 +23,7 @@
 
 ### What is this
 - Web application
-    - scrape from http://bbs.jpcanada.com
+    - scrape from http://bbs.jpcanada.com/listing.php?bbs=4&order=2
     - send message
         - LINE
         - mail (now it does not work because something wrong happened with SendGrid and heroku)
