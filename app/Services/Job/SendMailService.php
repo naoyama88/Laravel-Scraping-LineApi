@@ -3,6 +3,7 @@
 namespace App\Services\Job;
 
 use App\Libs\Constant\JobCategory;
+use App\Libs\Constant\Messages;
 use SendGrid\Email;
 use SendGrid\Content;
 use SendGrid\Mail;
@@ -15,28 +16,27 @@ class SendMailService
      */
     public function makeContentText($todayJobs) : string
     {
-        $newLine = '<br>';
-        $contentText = '<h3>JPCANADA ' . $newLine . '仕事・求人＠バンクーバー</h3>';
-        $today = date('Y年n月j日');
-        $contentText .= '<h3>本日' . $today . 'に追加されたお仕事です。</h3>';
-        $contentText .= $newLine;
+        $contentText = Messages::MAIL_HEADER_1;
+        $today = date(Messages::MAIL_CONTEXT_DATE_FORMAT);
+        $contentText .= sprintf(Messages::MAIL_HEADER_2, $today);
 
+        $newLine = '<br>';
         $tempIndex = 1;
         foreach ($todayJobs as $job) {
-            // タイトル
+            // title
             $contentText .= '<strong>' . $tempIndex . ') ' . '</strong><b>' . $job->title . '</b>';
             $contentText .= $newLine;
 
-            // お仕事カテゴリー
+            // job category
             $contentText .= 'カテゴリ： ';
             $contentText .= JobCategory::CATEGORIES[$job->category];
             $contentText .= $newLine;
 
-            // リンク
+            // hyper link
             $contentText .= $job->href;
             $contentText .= $newLine;
 
-            // 入稿時間
+            // post datetime
             $contentText .= ' 入稿時間 ' . $job->post_datetime;
             $contentText .= $newLine;
             $contentText .= $newLine;
@@ -100,20 +100,20 @@ class SendMailService
 
         $tempIndex = 1;
         foreach ($todayJobs as $job) {
-            // タイトル
+            // title
             $contentText .= $tempIndex . ') ' . $job->title;
             $contentText .= $newLine;
 
-            // お仕事カテゴリー
+            // job category
             $contentText .= 'カテゴリ： ';
             $contentText .= JobCategory::CATEGORIES[$job->category];
             $contentText .= $newLine;
 
-            // リンク
+            // hyper link
             $contentText .= $job->href;
             $contentText .= $newLine;
 
-            // 入稿時間
+            // post datetime
             $contentText .= ' 入稿時間 ' . $job->post_datetime;
             $contentText .= $newLine;
             $contentText .= $newLine;

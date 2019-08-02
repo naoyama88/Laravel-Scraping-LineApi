@@ -26,7 +26,8 @@ class UnfollowService
     }
 
     /**
-     * 登録削除
+     * delete line friend info when unfollow event receive
+     *
      * @param UnfollowEvent $event
      * @return bool
      */

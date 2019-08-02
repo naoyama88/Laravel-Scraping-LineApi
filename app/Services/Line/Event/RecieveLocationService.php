@@ -22,7 +22,9 @@ class ReceiveLocationService
     }
 
     /**
-     * 登録
+     * Location
+     * Do nothing now
+     *
      * @param LocationMessage $event
      * @return string
      */

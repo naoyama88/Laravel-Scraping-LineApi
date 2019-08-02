@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // TODO これで実現させたい、php artisan schedule:run
-        // いまは php artisan command registerjob で実現している
+        // TODO better to use "php artisan schedule:run"
+        // TODO now I use "php artisan command registerjob"
 //        $schedule->command('command:testcommand')
 //            ->everyMinute()
 //            ->between('8:00', '23:10');

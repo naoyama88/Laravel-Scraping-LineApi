@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Libs\Constant\Messages;
 use App\Services\Line\Event\ReceiveLocationService;
 use App\Services\Line\Event\ReceiveTextService;
 use App\Services\Line\Event\FollowService;
@@ -19,13 +20,13 @@ class LineBotController
 {
     /**
      * callback from LINE Message API(webhook)
+     *
      * @param Request $request
      * @throws LINEBot\Exception\InvalidSignatureException
      * @throws \Exception
      */
     public function callback(Request $request)
     {
-        Log::info('get it!');
         /** @var LINEBot $bot */
         $bot = app('line-bot');
 
@@ -40,45 +41,36 @@ class LineBotController
         /** @var LINEBot\Event\BaseEvent $event */
         foreach ($events as $event) {
             $replyToken = $event->getReplyToken();
-            $replyMessage = 'その操作はサポートしてません。.[' . get_class($event) . '][' . $event->getType() . ']';
+            $replyMessage = Messages::NOT_SUPPORTED_OPERATE; // as default message
 
             switch (true){
-                //友達登録＆ブロック解除
                 case $event instanceof FollowEvent:
+                    // add friends or unblock
                     $service = new FollowService($bot);
-                    $message = '友達登録ありがとうございます！JPCANADA(Vancouver)のお仕事情報をお伝えするアカウントです。' . PHP_EOL . PHP_EOL
-                        . '１）このアカウントは、JPCANADAのバンクーバー仕事・求人掲示板に新規投稿された投稿を順次お知らせします。' . PHP_EOL
-                        . '２）既存の投稿にコメントがついた場合でもこちらのアカウントには流れてくることはありませんのでご了承ください。' . PHP_EOL
-                        . '３）お仕事が追加され次第順次お知らせするため通知が多くなる場合があります。煩わしいと感じる場合には当アカウントをミュートに設定してご利用ください。' . PHP_EOL
-                        . '４）特定の文字をメッセージすると、その文字をタイトルに含むお仕事情報を過去1ヶ月のお仕事情報から取得し提供します。' . PHP_EOL . PHP_EOL
-                        . '注意' . PHP_EOL
-                        . '１）当アカウントは非公式ですので、JPCANADAが公開する一切の情報に関して関与しておりませんのでご注意ください。' . PHP_EOL
-                        . '２）当アカウントを利用したことによってユーザーが負った不利益について、当アカウントは一切の責任を負いません。' . PHP_EOL
-                        . '３）当サービスの管理者は金銭的収入を得ることは基本的にありませんが、ごく稀にお仕事情報以外の情報をアナウンスする場合がございます。ご了承ください。' . PHP_EOL
-                        . '４）当サービスは予告なく終了する場合がございます。ご注意ください。';
                     $replyMessage = $service->execute($event)
-                        ? $message
-                        : '友達登録ありがとうございます！';
+                        ? Messages::ADD_FRIEND
+                        : Messages::ADD_FRIEND_ERROR;
 
                     break;
-                //メッセージの受信
+
                 case $event instanceof TextMessage:
+                    // receive message
                     $service = new ReceiveTextService($bot);
                     $replyMessage = $service->execute($event);
                     break;
 
-                //位置情報の受信(nothing to do)
                 case $event instanceof LocationMessage:
+                    // receive location
                     $service = new ReceiveLocationService($bot);
                     $replyMessage = $service->execute($event);
                     break;
 
-                //選択肢とか選んだ時に受信するイベント
                 case $event instanceof PostbackEvent:
-                    // TODO anything
+                    // select options
+                    // TODO Do something
                     break;
-                //ブロック
                 case $event instanceof UnfollowEvent:
+                    // block
                     $service = new UnfollowService($bot);
                     $service->execute($event);
                     break;

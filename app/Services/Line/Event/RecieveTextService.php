@@ -24,7 +24,8 @@ class ReceiveTextService
     }
 
     /**
-     * 検索
+     * search
+     *
      * @param TextMessage $event
      * @return string
      */

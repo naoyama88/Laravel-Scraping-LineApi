@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Log;
 class Util
 {
     /**
+     * judge current time whether it's between 23:20 and 8:00
+     *
      * @param string $now made by function date('xx:xx:xx')
      * @return bool
      */
@@ -15,15 +17,13 @@ class Util
         $nowTimestamp = strtotime($now);
         $startMidnight = strtotime(date(env('DO_NOT_DISTURB_FROM', '23:20:00')));
         $endMidnight = strtotime(date(env('DO_NOT_DISTURB_TO', '08:00:00')));
-        if ($nowTimestamp <= $startMidnight && $endMidnight <= $nowTimestamp) {
-            // not midnight
-            return false;
-        }
 
-        return true;
+        return $startMidnight < $nowTimestamp || $nowTimestamp < $endMidnight;
     }
 
     /**
+     * judge a number whether it's even number
+     *
      * @param string $minuteStr
      * @return bool
      * @throws \Exception
@@ -42,7 +42,7 @@ class Util
                 return false;
         }
 
-        throw new \Exception('"分"以外の文字列が使用されています,使用されている文字「' . $minuteStr . '」');
+        throw new \Exception('This is not between 0 and 6. Number is ' . $minuteStr);
     }
 
     /**

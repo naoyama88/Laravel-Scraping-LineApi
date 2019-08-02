@@ -4,6 +4,7 @@ namespace App\Services\Job;
 
 use App\Libs\Constant\JobCategory;
 use App\Libs\Constant\MailType;
+use App\Libs\Constant\Messages;
 use App\Models\Job;
 use phpQuery;
 use Illuminate\Support\Facades\Log;
@@ -48,7 +49,7 @@ class JobService
         foreach ($doc["#bbs-table"]->find("div.divTableRow") as $tableRow) {
             $jobRecord = [];
 
-            // お仕事カテゴリ (取得直後ex. /icon/bbs238.png or http://bbs.jpcanada.com/icon/bbs997.gif)
+            // gif image meant job category (example. /icon/bbs238.png or http://bbs.jpcanada.com/icon/bbs997.gif)
             $category = pq($tableRow)->find('img')->attr('src');
             if (!in_array($category, JobCategory::JOB_CATEGORIES)) {
                 // exclude 広告 or お知らせ
@@ -56,17 +57,17 @@ class JobService
             }
             $jobRecord['category'] = $category;
 
-            // お仕事ID (取得直後ex. No.89827)
+            // job ID (example. No.89827)
             $jobRecord['id'] = trim(pq($tableRow)->find('nobr')->text(), "No.");
 
-            // お仕事タイトル (取得直後ex. 日本食卸で、倉庫係りを募集しております！)
+            // job title (example. 日本食卸で、倉庫係りを募集しております！)
             $jobRecord['title'] = pq($tableRow)->find('div.col4>a')->text();
 
-            // お仕事リンク (取得直後ex. topics.php?bbs=4&msgid=89890&order=2&cat=&&dummy=0)
+            // hyper link to job page (example. topics.php?bbs=4&msgid=89890&order=2&cat=&&dummy=0)
             $href = pq($tableRow)->find('div.col4>a')->attr('href');
             $jobRecord['href'] = 'http://bbs.jpcanada.com/' . $href;
 
-            // 投稿時間 (取得直後ex. 2019-02-27 14:32:09 Charisma cafe and dessert house/バンクーバー)
+            // post time (example. 2019-02-27 14:32:09 Charisma cafe and dessert house/バンクーバー)
             $jobRecord['post_datetime'] = substr(trim(pq($tableRow)->find('div.col4>span.post-detail')->text()), 0, 19);
 
             $jobRecords[] = $jobRecord;
@@ -94,7 +95,7 @@ class JobService
                 $sentTypeColumn = MailType::TYPE_03;
                 break;
             default:
-                Log::info('送信タイプ異常');
+                Log::info(Messages::WRONG_SEND_TYPE);
                 return [];
         }
         $todayJobs = Job::whereBetween('post_datetime', [$from, $to])
@@ -123,7 +124,7 @@ class JobService
                 $sentTypeColumn = MailType::TYPE_03;
                 break;
             default:
-                Log::info('送信タイプ異常');
+                Log::info(Messages::WRONG_SEND_TYPE);
                 return [];
         }
         Job::whereIn('id', $ids)

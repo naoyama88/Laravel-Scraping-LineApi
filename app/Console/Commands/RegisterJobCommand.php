@@ -34,7 +34,11 @@ class RegisterJobCommand extends Command
         parent::__construct();
     }
 
-    // 1時間に3回、1日に約35〜46回(herokuスケジューラのミスに依存)jpcanadaにアクセスし情報を取得
+    /*
+     * Get job information from the website
+     * trice in an hour
+     * sometimes the number of getting job count will change (depending on heroku scheduler)
+     */
     public function handle()
     {
         if (Util::isMidnight(date('H:i:s'))) {
