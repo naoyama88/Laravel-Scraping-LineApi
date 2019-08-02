@@ -37,8 +37,7 @@ class RegisterJobCommand extends Command
     // 1時間に3回、1日に約35〜46回(herokuスケジューラのミスに依存)jpcanadaにアクセスし情報を取得
     public function handle()
     {
-        $util = new Util();
-        if ($util->isMidnight(date('H:i:s'))) {
+        if (Util::isMidnight(date('H:i:s'))) {
             Log::info('Now it\'s midnight.');
             return true;
         }
@@ -46,7 +45,7 @@ class RegisterJobCommand extends Command
         // the scheduler is expected to be set every 10 minutes
         // don't get job info if the tens place of the minutes is even number (not to access many times)
         $minutes = date('i');
-        if ($util->isEvenNumber($minutes)) {
+        if (Util::isEvenNumber($minutes)) {
             Log::info('Now it\'s not time to scrape because the minutes is' . $minutes . '.');
             return true;
         }

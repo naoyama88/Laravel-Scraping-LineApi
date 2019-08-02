@@ -10,7 +10,7 @@ class Util
      * @param string $now made by function date('xx:xx:xx')
      * @return bool
      */
-    public function isMidnight(string $now)
+    public static function isMidnight(string $now)
     {
         $nowTimestamp = strtotime($now);
         $startMidnight = strtotime(date(env('DO_NOT_DISTURB_FROM', '23:20:00')));
@@ -28,7 +28,7 @@ class Util
      * @return bool
      * @throws \Exception
      */
-    public function isEvenNumber(string $minuteStr)
+    public static function isEvenNumber(string $minuteStr)
     {
         $tenPlaceMinute = intval(substr($minuteStr, 0, 1));
         switch ($tenPlaceMinute) {

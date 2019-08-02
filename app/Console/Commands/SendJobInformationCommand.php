@@ -47,8 +47,7 @@ class SendJobInformationCommand extends Command
     {
         Log::info('start send_job_information');
         // 実行時間の確認
-        $util = new Util();
-        if ($util->isMidnight(date('H:i:s'))) {
+        if (Util::isMidnight(date('H:i:s'))) {
             Log::info('Now it\'s midnight.');
             return true;
         }
