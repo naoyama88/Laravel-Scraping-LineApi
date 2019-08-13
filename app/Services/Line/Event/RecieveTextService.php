@@ -6,6 +6,7 @@ use App\Services\Job\JobService;
 use App\Services\Job\SendMailService;
 use LINE\LINEBot;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
+use Illuminate\Support\Facades\Log;
 
 class ReceiveTextService
 {
@@ -32,6 +33,9 @@ class ReceiveTextService
     public function execute(TextMessage $event) : string
     {
         $userText = $event->getText();
+
+        Log::info($userText);
+
         $jobService = new JobService();
         // get job information related with the word user sent
         $jobs = $jobService->getJobsByText($userText);
