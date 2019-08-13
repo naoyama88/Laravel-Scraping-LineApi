@@ -26,7 +26,11 @@ class LineSendMessageService
             $lineIds[] = $lineFriend->line_id;
         }
         $textMessageBuilder = new TextMessageBuilder($text);
+        Log::info('ライン送信確認ログ');
+        Log::info('ライン送信確認ログ：送信先');
         Log::info($lineIds);
+        Log::info('ライン送信確認ログ：送信内容(コンバート前)');
+        Log::info($text);
         $response = $bot->multicast($lineIds, $textMessageBuilder);
     }
 }
