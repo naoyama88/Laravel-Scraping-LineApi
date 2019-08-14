@@ -32,5 +32,6 @@ class LineSendMessageService
         Log::info('ライン送信確認ログ：送信内容(コンバート前)');
         Log::info($text);
         $response = $bot->multicast($lineIds, $textMessageBuilder);
+        print_r($response);
     }
 }
