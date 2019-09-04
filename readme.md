@@ -51,7 +51,7 @@
 - There ware three or more way to keep this app working. Here are the example below.
     - Change the cycle of sending message (Like 1 in 2 days)
     - Make a limit of user(I could have 50 users, but limit can cut number of users like only 2 people)
-    - Register the Unlimited LINE Developer account (This is the worst because I didn't have plan to make money using this app)
+    - Register the Unlimited LINE Developer account (This is the worst because it's not free and I didn't have plan to make money using this app)
 
 #### what I learned
 - Read the documentation of the API before something you try.
