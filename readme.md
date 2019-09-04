@@ -3,7 +3,7 @@
 |---|---|
 |![](https://user-images.githubusercontent.com/15808541/56231258-e51c9e00-6032-11e9-85b8-febc45a33d55.png)|![](https://user-images.githubusercontent.com/15808541/56231227-d0d8a100-6032-11e9-92a7-6155b29831e5.png)|
 
-## 日本人ユーザーの方へ
+## 日本人ユーザーの方へ(2019/09/03 サービス終了しました)
 
 ### これはなにか
 - JPカナダの新着バンクーバー求人情報をLINEに流してくれるBotアプリケーションです。
@@ -40,6 +40,24 @@
     - You can get job information posted on jpcanada as soon as possible
 
 ## For developers
+
+### ----Now This is not working anymore----
+
+#### why
+- Every developer could send push message using LINE API only for 1000 times in a month.
+- I didn't know that until this app stopped sending message because of the limit.
+
+#### what I could've done
+- There ware three or more way to keep this app working. Here are the example below.
+    - Change the cycle of sending message (Like 1 in 2 days)
+    - Make a limit of user(I could have 50 users, but limit can cut number of users like only 2 people)
+    - Register the Unlimited LINE Developer account (This is the worst because I didn't have plan to make money using this app)
+
+#### what I learned
+- Read the documentation of the API before something you try.
+
+
+
 
 ### What I use
 - heroku (free)
